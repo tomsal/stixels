@@ -207,7 +207,7 @@ private:
 	void PrecomputeSky();
 	void PrecomputeGround();
 	void PrecomputeObject();
-	float GetDataCostObject(const float fn, const int dis, const float d);
+	float GetDataCostObject(const int fn, const int dis);
 	float ComputeObjectDisparityRange(const float previous_mean);
 	pixel_t ComputeMean(const int vB, const int vT, const int u);
 	float GroundFunction(const int v);

@@ -91,7 +91,7 @@ void Stixels::Initialize() {
 
 	for(int fn = 0; fn < m_max_dis; fn++) {
 		for(int dis = 0; dis < m_max_dis; dis++) {
-			m_obj_cost_lut[fn*m_max_dis+dis] = GetDataCostObject((float) fn, dis, (float) dis);
+			m_obj_cost_lut[fn*m_max_dis+dis] = GetDataCostObject(fn, dis);
 		}
 	}
 
@@ -371,11 +371,11 @@ void Stixels::PrecomputeObject() {
 	}
 }
 
-float Stixels::GetDataCostObject(const float fn, const int dis, const float d) {
+float Stixels::GetDataCostObject(const int fn, const int dis){
 	float data_cost = m_pnexists_given_object_log;
-	if(!ALLOW_INVALID_DISPARITIES || d != INVALID_DISPARITY) {
-		const float model_diff = (d-fn);
-		const float pgaussian = m_normalization_object[dis] + model_diff*model_diff*m_inv_sigma2_object[dis];
+	if(!ALLOW_INVALID_DISPARITIES || dis != INVALID_DISPARITY) {
+		const float model_diff = (float) (dis-fn);
+		const float pgaussian = m_normalization_object[fn] + model_diff*model_diff*m_inv_sigma2_object[fn];
 
 		const float p_data = fminf(m_puniform, pgaussian);
 		data_cost = p_data + m_nopnexists_given_object_log;
